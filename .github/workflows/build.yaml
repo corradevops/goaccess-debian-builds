@@ -28,4 +28,10 @@ jobs:
           cd goaccess-1.9.3/
           ./configure --enable-utf8 --enable-geoip=mmdb
           make
-          ls -la
+
+      - name: "Create a release"
+        uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ github.run.id }}
+          tag_name: ${{ github.ref_name }}
+          files: goaccess/goaccess
