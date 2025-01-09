@@ -26,13 +26,14 @@ jobs:
           wget https://tar.goaccess.io/goaccess-1.9.3.tar.gz
           tar -xzvf goaccess-1.9.3.tar.gz
           cd goaccess-1.9.3/
+          pwd
           ./configure --enable-utf8 --enable-geoip=mmdb
           make
           ls -liFh
 
-#      - name: "Create a release"
-#        uses: softprops/action-gh-release@v2
-#        with:
-#          name: ${{ github.run.id }}
-#          tag_name: ${{ github.ref_name }}
-#          files: goaccess/goaccess
+      - name: "Create a release"
+        uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ github.run.id }}
+          tag_name: ${{ github.ref_name }}
+          files: goaccess-1.9.3/goaccess
