@@ -1,0 +1,33 @@
+name: "Build Goaccess"
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  build:
+    name: "Build Ghostty"
+    runs-on: ubuntu-20.04
+    permissions: write-all
+
+    steps:
+      - name: "Checkout latest codebase"
+        uses: actions/checkout@v3
+
+      # Refer : https://ghostty.org/docs/install/build
+      - name: "Install Depenencies"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential libmaxminddb-dev
+
+      - name: "Clone Goaccess repo"
+        uses: GuillaumeFalourd/clone-github-repo-action@v2.3
+        with:
+          depth: 1
+          branch: 'v1.9.3'
+          owner: 'allinurl'
+          repository: 'goaccess'
+
+      - name: "Build Ghostty binary"
+        run: cd goaccess && ./configure --enable-utf8 --enable-geoip=mmdb && make && ls -la
